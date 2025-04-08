@@ -3,16 +3,18 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
 from .models import User, Team, Activity, Leaderboard, Workout
+from django.conf import settings
 
 @api_view(['GET'])
 def api_root(request, format=None):
     base_url = request.build_absolute_uri('/')
+    api_suffix = settings.API_ENDPOINT_SUFFIX
     return Response({
-        'users': f'{base_url}api/users/',
-        'teams': f'{base_url}api/teams/',
-        'activities': f'{base_url}api/activities/',
-        'leaderboard': f'{base_url}api/leaderboard/',
-        'workouts': f'{base_url}api/workouts/'
+        'users': f'{base_url}{api_suffix}users/',
+        'teams': f'{base_url}{api_suffix}teams/',
+        'activities': f'{base_url}{api_suffix}activities/',
+        'leaderboard': f'{base_url}{api_suffix}leaderboard/',
+        'workouts': f'{base_url}{api_suffix}workouts/'
     })
 
 class UserViewSet(viewsets.ModelViewSet):
