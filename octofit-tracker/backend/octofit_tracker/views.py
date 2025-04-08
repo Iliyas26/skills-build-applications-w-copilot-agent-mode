@@ -7,7 +7,7 @@ from django.conf import settings
 
 @api_view(['GET'])
 def api_root(request, format=None):
-    base_url = request.build_absolute_uri('/')
+    base_url = "https://musical-waddle-x96wx9vgg4526vvj-8000.app.github.dev/"
     api_suffix = settings.API_ENDPOINT_SUFFIX
     return Response({
         'users': f'{base_url}{api_suffix}users/',
