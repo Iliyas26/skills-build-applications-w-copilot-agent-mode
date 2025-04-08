@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,17 @@ DEBUG = True
 
 # Allow all hosts
 ALLOWED_HOSTS = ['*']
+
+# Add Codespace Django REST API endpoint suffix
+CODESPACE_SUFFIX = os.getenv('CODESPACE_NAME', '')
+if CODESPACE_SUFFIX:
+    ALLOWED_HOSTS.append(f'{CODESPACE_SUFFIX}-8000.preview.app.github.dev')
+
+# Allow localhost and Codespace preview URL
+ALLOWED_HOSTS.extend(['localhost', '127.0.0.1'])
+
+# Define API endpoint suffix
+API_ENDPOINT_SUFFIX = os.getenv('API_ENDPOINT_SUFFIX', '')
 
 
 # Application definition
@@ -138,6 +150,3 @@ CORS_ALLOW_METHODS = [
 CORS_ALLOW_HEADERS = [
     'content-type', 'authorization', 'x-csrftoken'
 ]
-
-# Define the codespace Django REST API endpoint suffix
-API_ENDPOINT_SUFFIX = '/api/v1/'
